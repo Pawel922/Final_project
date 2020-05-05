@@ -1,0 +1,69 @@
+.errorMessage {
+    color: rosybrown;
+}
+
+#map {
+    height: 100%;
+}
+
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+#container {
+    min-height:100%;
+    position:relative;
+}
+#header {
+    background: grey;
+    padding:20px;
+}
+#middle {
+    padding:10px;
+    padding-bottom:60px;	/* Wysokość nagłówka */
+}
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;		/* Wysokość nagłówka */
+    background: grey;
+}
+
+.text-muted {
+    color: white !important;
+    text-align: center;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 5px solid rgba(0,0,0,.125);
+    border-radius: .5rem;
+}
+
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.h5, h5 {
+    font-size: 1.75rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: justify;
+    width: 500px;
+}
