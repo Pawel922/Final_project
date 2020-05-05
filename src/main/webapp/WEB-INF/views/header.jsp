@@ -13,10 +13,10 @@
         <div class="card-header">
             <ul class="nav nav-pills card-header-pills">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link active" href="/home/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Routes</a>
+                    <a class="nav-link" href="/delivery/list">Delivery plans</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">About us</a>

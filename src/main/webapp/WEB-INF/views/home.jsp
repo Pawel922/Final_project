@@ -1,5 +1,4 @@
 <html>
-
 <body>
 <div id="container">
     <div id="header"><%@ include file="header.jsp" %></div>
@@ -10,7 +9,7 @@
                 Less effort, more money and what is the most important, greater number of satisfied clients.
                 The only thing which you need is to know addresses for delivery.
                 We will do all the remaining things instead&nbspof&nbspyou. Could it be simpler? Let's try. You won't regret!</p>
-            <a href="#" class="btn btn-primary">Try</a>
+            <a href="/delivery/add" class="btn btn-primary">Try</a>
         </div>
     </div>
     <div id="footer"><%@ include file="footer.jsp" %></div>
