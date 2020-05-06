@@ -16,9 +16,9 @@
                     <tr>
                         <td>${loopCounter.count}</td>
                         <td>${deliveryPlan.deliveryDate}</td>
-                        <td><a href="/delivery/details/${deliveryPlan.id}">Details</a></td>
-                        <td><a href="/route/find/${deliveryPlan.id}">Show route</a></td>
-                        <td><a href="/delivery/delete/${deliveryPlan.id}">Delete</a></td>
+                        <td><a class="btn btn-warning" href="/delivery/details/${deliveryPlan.id}" role="button">Details</a></td>
+                        <td><a class="btn btn-success" href="/route/find/${deliveryPlan.id}" role="button">Show route</a></td>
+                        <td><a class="btn btn-danger" href="/delivery/delete/${deliveryPlan.id}" role="button">Delete</a></td>
                     </tr>
                 </c:forEach>
             </table>
@@ -27,7 +27,6 @@
             <a class="btn btn-primary" href="/delivery/add" role="button">Add new</a>
         </div>
     </div>
-    <div id="footer"><%@ include file="footer.jsp" %></div>
 </div>
 </body>
 </html>
