@@ -67,3 +67,9 @@ p {
     text-align: justify;
     width: 500px;
 }
+
+.table {
+    width: 50%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
