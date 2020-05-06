@@ -30,10 +30,5 @@
         </table>
     </form:form>
 </div>
-<div id="map">
-
-</div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
-<script src="/resources/js/place-form.js"></script>
 </body>
 </html>
