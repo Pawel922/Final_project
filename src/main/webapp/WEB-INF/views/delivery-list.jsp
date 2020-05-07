@@ -27,6 +27,7 @@
             <a class="btn btn-primary" href="/delivery/add" role="button">Add new</a>
         </div>
     </div>
+    <div id="footer"><%@ include file="footer.jsp" %></div>
 </div>
 </body>
 </html>
