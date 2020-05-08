@@ -1,32 +1,32 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Edit place</title>
-    <link rel="stylesheet" href="/resources/css/style.css"/>
-</head>
 <body>
-    <form:form modelAttribute="placeToEdit" method="post">
-        <table>
-            <tr><td><form:label path="city">City</form:label></td></tr>
-            <tr><td><form:input path="city"/></td></tr>
-            <tr><td><form:errors path="city" cssClass="errorMessage"/></td></tr>
-
-            <tr><td><form:label path="street">Street</form:label></td></tr>
-            <tr><td><form:input path="street"/></td></tr>
-            <tr><td><form:errors path="street" cssClass="errorMessage"/></td></tr>
-
-            <tr><td><form:label path="houseNumber">House number:</form:label></td></tr>
-            <tr><td><form:input path="houseNumber"/></td>
-            <tr><td><form:errors path="houseNumber" cssClass="errorMessage"/></td></tr>
-
-            <tr><td><form:hidden path="charRepresentation"/></td></tr>
-            <tr>
-                <td><a href="/delivery/details/${planToEdit.id}">Back</a></td>
-                <td><input type="submit" value="Save"></td>
-            </tr>
-        </table>
-    </form:form>
+<div id="container">
+    <div id="header"><%@ include file="header.jsp" %></div>
+    <div id="middle">
+        <form:form id="place-edit" modelAttribute="placeToEdit" method="post">
+            <div class="form-group">
+                <form:label path="city">City:</form:label>
+                <form:input path="city" cssClass="form-control"/>
+                <small class="form-text text-muted"><form:errors path="city" cssClass="errorMessage"/></small>
+            </div>
+            <div class="form-group">
+                <form:label path="street">Street:</form:label>
+                <form:input path="street" cssClass="form-control"/>
+                <small class="form-text text-muted"><form:errors path="street" cssClass="errorMessage"/></small>
+            </div>
+            <div class="form-group">
+                <form:label path="houseNumber">House number:</form:label>
+                <form:input path="houseNumber" cssClass="form-control"/>
+                <small class="form-text text-muted"><form:errors path="houseNumber" cssClass="errorMessage"/></small>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-secondary" href="/delivery/details/${planToEdit.id}" role="button">Back</a>
+                <form:hidden path="charRepresentation" cssClass="form-control"/>
+                <input class="btn btn-primary" type="submit" value="Save" role="button">
+            </div>
+        </form:form>
+    </div>
+    <div id="footer"><%@ include file="footer.jsp" %></div>
+</div>
 </body>
 </html>
