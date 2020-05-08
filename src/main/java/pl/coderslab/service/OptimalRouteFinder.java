@@ -20,8 +20,11 @@ public class OptimalRouteFinder {
         Set<String> permutationSet = generatePerm(TEMP_HELPFUL_STR).stream()
                 .filter(s -> s.startsWith(START_LETTER))
                 .collect(Collectors.toSet());
+        //modifiedSet is used to compute optimal route where start and end point are the same
+        Set<String> modifiedSet = new HashSet<>();
+        permutationSet.forEach(s -> modifiedSet.add(s.concat(START_LETTER)));
         List<Route> routes = new ArrayList<>();
-        for(String str : permutationSet) {
+        for(String str : modifiedSet) {
             Route route = new Route();
             double totalDistance = 0;
             for(int i = 0; i < str.length() - 1; i++) {
