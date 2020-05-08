@@ -12,4 +12,14 @@ public class HomePageController {
     public String displayHomePage() {
         return "home";
     }
+
+    @GetMapping("/about")
+    public String displayAboutUsPage() {
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public String displayContactPage() {
+        return "contact";
+    }
 }

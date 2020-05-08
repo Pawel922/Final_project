@@ -19,10 +19,10 @@
                     <a class="nav-link" href="/delivery/list">Delivery plans</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">About us</a>
+                    <a class="nav-link" href="/home/about" tabindex="-1" aria-disabled="true">About us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contact</a>
+                    <a class="nav-link" href="/home/contact" tabindex="-1" aria-disabled="true">Contact</a>
                 </li>
             </ul>
         </div>
