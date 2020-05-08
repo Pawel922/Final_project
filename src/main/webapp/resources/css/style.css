@@ -80,7 +80,7 @@ p {
     border-top: 1px solid #dee2e6;
 }
 
-#place-edit {
+#place-edit, #place-form {
     width: 30%;
     margin-left: 2rem;
 }

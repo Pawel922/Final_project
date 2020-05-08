@@ -3,7 +3,7 @@
 <div id="container">
     <div id="header"><%@ include file="header.jsp" %></div>
     <div id="middle">
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th>No.</th>
                 <th>From</th>
