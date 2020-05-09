@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CorrectPlaces {
-    String message() default "{pl.coderslab.api_test.validator.CorrectPlacesValidator.message}";
+    String message() default "{pl.coderslab.validator.CorrectPlacesValidator.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

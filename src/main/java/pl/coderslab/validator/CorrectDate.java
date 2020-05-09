@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CorrectDate {
-    String message() default "{pl.coderslab.api_test.validator.CorrectDateValidator.message}";
+    String message() default "{pl.coderslab.validator.CorrectDateValidator.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
