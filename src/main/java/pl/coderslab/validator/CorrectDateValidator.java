@@ -15,7 +15,7 @@ public class CorrectDateValidator implements ConstraintValidator<CorrectDate, St
     @Override
     public boolean isValid(String textDate, ConstraintValidatorContext context) {
         boolean isCorrect = true;
-        Pattern compiledPattern = Pattern.compile("[2][0-9]{3}-([0][1-9]|[1][0-2])-([0][1-9]|[1-2][1-9]|[3][0-1])");
+        Pattern compiledPattern = Pattern.compile("[2][0-9]{3}-([0][1-9]|[1][0-2])-([0][1-9]|[1-2][0-9]|[3][0-1])");
         Matcher matcher = compiledPattern.matcher(textDate);
         if(matcher.matches()) {
             String[] tempArray = textDate.split("-");
