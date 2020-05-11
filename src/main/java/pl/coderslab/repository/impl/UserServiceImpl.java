@@ -1,6 +1,7 @@
 package pl.coderslab.repository.impl;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import pl.coderslab.entity.Role;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.RoleRepository;
@@ -10,6 +11,7 @@ import pl.coderslab.repository.UserService;
 import java.util.Arrays;
 import java.util.HashSet;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
