@@ -28,6 +28,11 @@ public class UserController {
     @PostMapping("/register")
     public String processFormToRegisterNewUser(@ModelAttribute User user) {
         userService.saveUser(user);
-        return "/home";
+        return "redirect:/user/login";
+    }
+
+    @GetMapping("/login")
+    public String displayLoginPage() {
+        return "user-login";
     }
 }

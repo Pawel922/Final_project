@@ -84,3 +84,17 @@ p {
     width: 30%;
     margin-left: 2rem;
 }
+
+#middle-form-login {
+    padding: 10px;
+    width: 25%;
+    text-align: center;
+    margin: 5rem auto 0;
+}
+
+#middle-form-login input {
+    margin: 1rem;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
