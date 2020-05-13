@@ -37,7 +37,6 @@
                     </sec:authorize>
                 </li>
             </ul>
-
         </div>
     </div>
 </header>
