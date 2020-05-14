@@ -25,13 +25,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/home/contact" tabindex="-1" aria-disabled="true">Contact</a>
                 </li>
-                <li>
+                <li class="nav-item">
                     <sec:authorize access="isAuthenticated()">
                         <form action="/logout" method="post">
                             <input type="submit" class="btn btn-primary" value="Log out"/>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </sec:authorize>
+                </li>
+                <li class="nav-item">
+                    <sec:authorize access="isAuthenticated()">
+                        <p class="nav-link disabled" tabindex="-1" aria-disabled="true">You are logged as <sec:authentication property="principal.username" /></p>
+                    </sec:authorize>
+                </li>
+                <li class="nav-item">
                     <sec:authorize access="!isAuthenticated()">
                         <a class="nav-link active" href="/user/login">Sign in</a>
                     </sec:authorize>
