@@ -113,8 +113,9 @@ public class DeliveryPlanController {
     }
 
     @GetMapping("/list")
-    public String displayAllDeliveryPlans(Model model) {
-        List<DeliveryPlan> deliveryPlans = deliveryPlanRepository.findAllOrderByDeliveryDate();
+    public String displayAllDeliveryPlans(Model model,
+                                          @AuthenticationPrincipal CurrentUser currentUser) {
+        List<DeliveryPlan> deliveryPlans = deliveryPlanRepository.findAllOrderByDeliveryDate(currentUser.getUsername());
         model.addAttribute("deliveryPlans", deliveryPlans);
         return "delivery-list";
     }
