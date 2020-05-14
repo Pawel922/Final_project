@@ -2,6 +2,7 @@ package pl.coderslab.controller;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,10 +11,9 @@ import org.springframework.web.context.WebApplicationContext;
 import pl.coderslab.entity.DeliveryPlan;
 import pl.coderslab.entity.Place;
 import pl.coderslab.entity.Route;
-import pl.coderslab.repository.DeliveryPlanRepository;
-import pl.coderslab.repository.PlaceRepository;
-import pl.coderslab.repository.RouteRepository;
-import pl.coderslab.repository.SingleRoadRepository;
+import pl.coderslab.entity.User;
+import pl.coderslab.repository.*;
+import pl.coderslab.service.CurrentUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,20 +32,24 @@ public class DeliveryPlanController {
     private final PlaceRepository placeRepository;
     private final RouteRepository routeRepository;
     private final SingleRoadRepository singleRoadRepository;
+    private final UserRepository userRepository;
 
     public DeliveryPlanController(DeliveryPlanRepository deliveryPlanRepository,
                                   PlaceRepository placeRepository,
                                   RouteRepository routeRepository,
-                                  SingleRoadRepository singleRoadRepository) {
+                                  SingleRoadRepository singleRoadRepository,
+                                  UserRepository userRepository) {
         this.deliveryPlanRepository = deliveryPlanRepository;
         this.placeRepository = placeRepository;
         this.routeRepository = routeRepository;
         this.singleRoadRepository = singleRoadRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/add")
     public String displayForm(Model model,
-                              HttpServletRequest request) {
+                              HttpServletRequest request,
+                              @AuthenticationPrincipal CurrentUser currentUser) {
         HttpSession session = request.getSession();
         if(session.getAttribute("deliveryPlan") == null) {
             DeliveryPlan deliveryPlan = new DeliveryPlan();
@@ -56,6 +60,8 @@ public class DeliveryPlanController {
                 place.setCharRepresentation(c);
                 deliveryPlan.addPlace(place);
             }
+            User owner = userRepository.findByUsername(currentUser.getUsername());
+            deliveryPlan.setOwner(owner);
             model.addAttribute("deliveryPlan", deliveryPlan);
             return "delivery-form";
         } else {
