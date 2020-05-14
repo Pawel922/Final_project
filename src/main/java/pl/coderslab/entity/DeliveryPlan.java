@@ -26,6 +26,9 @@ public class DeliveryPlan {
             inverseJoinColumns = @JoinColumn(name = "place_id"))
     private List<Place> places = new ArrayList<>();
 
+    @ManyToOne
+    private User owner;
+
     private boolean calculationRequiredFlag = true;
 
     public long getId() {
@@ -56,6 +59,14 @@ public class DeliveryPlan {
         if(place != null) {
             places.add(place);
         }
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Place getPlace(int index) {
