@@ -14,10 +14,12 @@ import java.util.stream.Collectors;
 public class OptimalRouteFinder {
 
     private final String TEMP_HELPFUL_STR = "ABCDEF";
+    private final String TEMP_HELPFUL_STR_TRIAL = "ABC";
     private final String START_LETTER = "A";
 
-    public Route findRoute(List<SingleRoad> roads) {
-        Set<String> permutationSet = generatePerm(TEMP_HELPFUL_STR).stream()
+    public Route findRoute(List<SingleRoad> roads, boolean isOnlyTrial) {
+        String inputStr = isOnlyTrial ? TEMP_HELPFUL_STR_TRIAL : TEMP_HELPFUL_STR;
+        Set<String> permutationSet = generatePerm(inputStr).stream()
                 .filter(s -> s.startsWith(START_LETTER))
                 .collect(Collectors.toSet());
         //modifiedSet is used to compute optimal route where start and end point are the same

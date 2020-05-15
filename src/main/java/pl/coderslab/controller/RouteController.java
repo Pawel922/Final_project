@@ -26,11 +26,20 @@ public class RouteController {
     private final RouteRepository routeRepository;
     private final SingleRoadRepository singleRoadRepository;
 
-    @Autowired
     private SingleRoadManager singleRoadManager;
+    private OptimalRouteFinder optimalRouteFinder;
+
 
     @Autowired
-    private OptimalRouteFinder optimalRouteFinder;
+    public void setSingleRoadManager(SingleRoadManager singleRoadManager) {
+        this.singleRoadManager = singleRoadManager;
+    }
+
+    @Autowired
+    public void setOptimalRouteFinder(OptimalRouteFinder optimalRouteFinder) {
+        this.optimalRouteFinder = optimalRouteFinder;
+    }
+
 
     public RouteController(DeliveryPlanRepository deliveryPlanRepository,
                            RouteRepository routeRepository,
@@ -68,11 +77,19 @@ public class RouteController {
 
     public void processCalculations(DeliveryPlan deliveryPlan) {
         List<SingleRoad> singleRoads = singleRoadManager.prepareRoadObjects(deliveryPlan);
-        Route route = optimalRouteFinder.findRoute(singleRoads);
+        Route route = optimalRouteFinder.findRoute(singleRoads, false);
         route.setDeliveryPlan(deliveryPlan);
         route.getRoads().forEach(singleRoadRepository::save);
         routeRepository.save(route);
         deliveryPlan.setCalculationRequiredFlag(false);
         deliveryPlanRepository.save(deliveryPlan);
+    }
+
+    public static Route processTrialCalculations(DeliveryPlan deliveryPlan,
+                                                 SingleRoadManager singleRoadManager,
+                                                 OptimalRouteFinder optimalRouteFinder) {
+        List<SingleRoad> singleRoads = singleRoadManager.prepareRoadObjects(deliveryPlan);
+        Route route = optimalRouteFinder.findRoute(singleRoads, true);
+        return route;
     }
 }

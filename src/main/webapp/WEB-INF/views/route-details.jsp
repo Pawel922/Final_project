@@ -19,7 +19,12 @@
                 </tr>
             </c:forEach>
             <tr>
-                <td><a class="btn btn-secondary" href="/delivery/list" role="button">Back</a></td>
+                <sec:authorize access="isAuthenticated()">
+                    <td><a class="btn btn-secondary" href="/delivery/list" role="button">Back</a></td>
+                </sec:authorize>
+                <sec:authorize access="!isAuthenticated()">
+                    <td><a class="btn btn-secondary" href="/home" role="button">Back</a></td>
+                </sec:authorize>
                 <td></td>
                 <th>Total distance</th>
                 <td>${route.roundTotalDistance()}</td>
