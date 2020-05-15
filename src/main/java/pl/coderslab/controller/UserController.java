@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping(value = "/user", produces = "text/plain; charset=utf-8")
 public class UserController {
@@ -32,7 +35,11 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String displayLoginForm() {
+    public String displayLoginForm(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("deliveryPlan") != null) {
+            session.removeAttribute("deliveryPlan");
+        }
         return "user-login";
     }
 

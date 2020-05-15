@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.DeliveryPlan;
 import pl.coderslab.entity.Place;
 import pl.coderslab.repository.PlaceRepository;
+import pl.coderslab.service.CurrentUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -38,7 +40,8 @@ public class PlaceController {
     public String processForm(@Valid Place place,
                               BindingResult result,
                               @SessionAttribute DeliveryPlan deliveryPlan,
-                              @PathVariable char charRep) {
+                              @PathVariable char charRep,
+                              @AuthenticationPrincipal CurrentUser currentUser) {
         if(!result.hasErrors()) {
             Place placeToEdit = deliveryPlan.getPlaces().stream()
                     .filter(p -> p.getCharRepresentation() == charRep)
@@ -47,7 +50,11 @@ public class PlaceController {
             placeToEdit.setCity(place.getCity());
             placeToEdit.setStreet(place.getStreet());
             placeToEdit.setHouseNumber(place.getHouseNumber());
-            return "redirect:/delivery/add";
+            if(currentUser != null) {
+                return "redirect:/delivery/add";
+            } else {
+                return "redirect:/home/trial";
+            }
         } else {
             return "place-form";
         }

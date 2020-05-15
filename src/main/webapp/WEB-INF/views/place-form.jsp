@@ -20,7 +20,12 @@
                 <small class="form-text text-muted"><form:errors path="houseNumber" cssClass="errorMessage"/></small>
             </div>
             <div class="form-group">
-                <a class="btn btn-secondary" href="/delivery/add" role="button">Back</a>
+                <sec:authorize access="isAuthenticated()">
+                    <a class="btn btn-secondary" href="/delivery/add" role="button">Back</a>
+                </sec:authorize>
+                <sec:authorize access="!isAuthenticated()">
+                    <a class="btn btn-secondary" href="/home/trial" role="button">Back</a>
+                </sec:authorize>
                 <form:hidden path="charRepresentation"/>
                 <input class="btn btn-primary" type="submit" value="Add" role="button">
             </div>
