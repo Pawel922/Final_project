@@ -53,14 +53,7 @@ public class DeliveryPlanController {
                               @AuthenticationPrincipal CurrentUser currentUser) {
         HttpSession session = request.getSession();
         if(session.getAttribute("deliveryPlan") == null) {
-            DeliveryPlan deliveryPlan = new DeliveryPlan();
-            for(char c : CHAR_TABLE) {
-                Place place = new Place();
-                place.setCity("---");
-                place.setStreet("---");
-                place.setCharRepresentation(c);
-                deliveryPlan.addPlace(place);
-            }
+            DeliveryPlan deliveryPlan = prepareNewDeliveryPlan(CHAR_TABLE);
             User owner = userRepository.findByUsername(currentUser.getUsername());
             deliveryPlan.setOwner(owner);
             model.addAttribute("deliveryPlan", deliveryPlan);
@@ -128,6 +121,18 @@ public class DeliveryPlanController {
         optionalRoute.ifPresent(routeRepository::delete);
         deliveryPlanRepository.delete(deliveryPlan);
         return "redirect:/delivery/list";
+    }
+
+    public static DeliveryPlan prepareNewDeliveryPlan(char[] arrayOfCharRep) {
+        DeliveryPlan deliveryPlan = new DeliveryPlan();
+        for(char c : arrayOfCharRep) {
+            Place place = new Place();
+            place.setCity("---");
+            place.setStreet("---");
+            place.setCharRepresentation(c);
+            deliveryPlan.addPlace(place);
+        }
+        return deliveryPlan;
     }
 
 }
