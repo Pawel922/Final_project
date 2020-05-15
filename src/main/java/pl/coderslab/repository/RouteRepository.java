@@ -13,5 +13,5 @@ public interface RouteRepository extends JpaRepository<Route, Long> {
     Optional<Route> findByDeliveryPlanId(long id);
 
     @Query("SELECT r FROM Route r JOIN FETCH r.roads WHERE r.deliveryPlan.id = ?1")
-    Route getByDeliveryPlanId(long id);
+    Optional<Route> getByDeliveryPlanId(long id);
 }

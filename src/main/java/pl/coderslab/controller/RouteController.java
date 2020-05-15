@@ -56,14 +56,14 @@ public class RouteController {
     @GetMapping("/details/{deliveryPlanId}")
     public String displayRouteDetails(Model model,
                                       @PathVariable long deliveryPlanId) {
-        Route route = routeRepository.getByDeliveryPlanId(deliveryPlanId);
-        model.addAttribute("route", route);
+        Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
+        optionalRoute.ifPresent(route -> model.addAttribute("route", route));
         return "route-details";
     }
 
     public void prepareForNewCalculations(long deliveryPlanId) {
-        Route route = routeRepository.getByDeliveryPlanId(deliveryPlanId);
-        routeRepository.delete(route);
+        Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
+        optionalRoute.ifPresent(routeRepository::delete);
     }
 
     public void processCalculations(DeliveryPlan deliveryPlan) {
@@ -75,6 +75,4 @@ public class RouteController {
         deliveryPlan.setCalculationRequiredFlag(false);
         deliveryPlanRepository.save(deliveryPlan);
     }
-
-
 }

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/delivery", produces = "text/plain; charset=utf-8")
@@ -115,7 +116,7 @@ public class DeliveryPlanController {
     @GetMapping("/list")
     public String displayAllDeliveryPlans(Model model,
                                           @AuthenticationPrincipal CurrentUser currentUser) {
-        List<DeliveryPlan> deliveryPlans = deliveryPlanRepository.findAllOrderByDeliveryDate(currentUser.getUsername());
+        List<DeliveryPlan> deliveryPlans = deliveryPlanRepository.findAllOrderBelongToUser(currentUser.getUsername());
         model.addAttribute("deliveryPlans", deliveryPlans);
         return "delivery-list";
     }
@@ -123,8 +124,8 @@ public class DeliveryPlanController {
     @GetMapping("/delete/{deliveryPlanId}")
     public String removeDeliveryPlan(@PathVariable long deliveryPlanId) {
         DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
-        Route route = routeRepository.getByDeliveryPlanId(deliveryPlanId);
-        routeRepository.delete(route);
+        Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
+        optionalRoute.ifPresent(routeRepository::delete);
         deliveryPlanRepository.delete(deliveryPlan);
         return "redirect:/delivery/list";
     }

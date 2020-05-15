@@ -12,7 +12,7 @@ import java.util.List;
 public interface DeliveryPlanRepository extends JpaRepository<DeliveryPlan, Long> {
 
     @Query("SELECT db FROM DeliveryPlan db WHERE db.owner.username = ?1 ORDER BY db.deliveryDate")
-    List<DeliveryPlan> findAllOrderByDeliveryDate(String username);
+    List<DeliveryPlan> findAllOrderBelongToUser(String username);
 
     @Query("SELECT db FROM DeliveryPlan db JOIN FETCH db.places WHERE db.id = ?1")
     DeliveryPlan findById(long id);
