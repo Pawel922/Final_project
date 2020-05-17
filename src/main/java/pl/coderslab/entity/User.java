@@ -3,6 +3,8 @@ package pl.coderslab.entity;
 import pl.coderslab.validator.UniqueName;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,6 +19,8 @@ public class User {
     @UniqueName
     private String username;
 
+    @NotEmpty
+    @Size(min = 3, max = 7)
     private String password;
 
     private int enabled;
