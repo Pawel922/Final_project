@@ -26,6 +26,9 @@ public class CorrectDateValidator implements ConstraintValidator<CorrectDate, St
                 LocalDate date = LocalDate.of(year, month, day);
                 if(date.isBefore(LocalDate.now())) {
                     isCorrect = false;
+                    context.disableDefaultConstraintViolation();
+                    context.buildConstraintViolationWithTemplate( "date cannot be past" )
+                            .addConstraintViolation();
                 }
             } catch (DateTimeException e) {
                 isCorrect = false;
