@@ -1,5 +1,7 @@
 package pl.coderslab.entity;
 
+import pl.coderslab.validator.UniqueName;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -12,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 60)
+    @UniqueName
     private String username;
 
     private String password;
