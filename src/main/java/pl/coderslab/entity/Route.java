@@ -26,6 +26,8 @@ public class Route {
 
     private double totalDistance;
 
+    private String totalDuration;
+
     public long getId() {
         return id;
     }
@@ -67,6 +69,41 @@ public class Route {
 
     public void setTotalDistance(double totalDistance) {
         this.totalDistance = totalDistance;
+    }
+
+    public String getTotalDuration() {
+        String[] array = new String[this.roads.size()];
+        for(int i = 0; i < array.length; i++) {
+            array[i] = this.roads.get(i).getDuration();
+        }
+        int hours = 0;
+        int min  = 0;
+
+        for(String str : array) {
+            String[] tempArray = str.split(" ");
+            if(tempArray.length == 2) {
+                min = min + Integer.parseInt(tempArray[0]);
+                if(min >= 60) {
+                    hours ++;
+                    min = min - 60;
+                }
+            } else {
+                hours = hours + Integer.parseInt(tempArray[0]);
+                min = min + Integer.parseInt(tempArray[2]);
+                if(min > 60) {
+                    hours ++;
+                    min = min - 60;
+                }
+            }
+        }
+
+        if(hours == 0) {
+            return String.format("%d mins", min);
+        } else if (hours == 1) {
+            return String.format("%d hour %d mins", hours, min);
+        } else {
+            return String.format("%d hours %d mins", hours, min);
+        }
     }
 
     @Override

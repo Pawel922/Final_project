@@ -39,16 +39,6 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-<%--                <tr>--%>
-<%--                    <th>Delivery date (yyyy-MM-dd):</th>--%>
-<%--                    <td></td>--%>
-<%--                    <td></td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td><form:input path="deliveryDate"/></td>--%>
-<%--                    <td><form:errors path="deliveryDate" cssClass="errorMessage"/></td>--%>
-<%--                    <td></td>--%>
-<%--                </tr>--%>
                 <tr>
                     <td><a class="btn btn-secondary" href="/home" role="button">Back</a></td>
                     <td></td>

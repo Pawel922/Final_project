@@ -28,8 +28,9 @@
                     <td><a class="btn btn-secondary" href="/home" role="button">Back</a></td>
                 </sec:authorize>
                 <td></td>
-                <th>Total distance</th>
+                <th>Total:</th>
                 <td>${route.roundTotalDistance()}</td>
+                <td>${route.getTotalDuration()}</td>
             </tr>
         </table>
     </div>
