@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class DistanceMatrixGenerator {
 
-    private static final String API_KEY = "AIzaSyD6SFC8ZOB4hKovBt8uUeBkN-VIPUGlCso";
+    private static final String API_KEY = "";
 
 
     public static DistanceMatrix getGoogleAPIResponse(List<Place> placesToVisit) throws ApiException, InterruptedException, IOException {
@@ -29,7 +29,7 @@ public class DistanceMatrixGenerator {
         DistanceMatrix result = request.origins(addresses)
                 .destinations(addresses)
                 .mode(TravelMode.DRIVING)
-                .language("pl-PL")
+                .language("en-EN")
                 .units(Unit.METRIC)
                 .await();
         return result;
