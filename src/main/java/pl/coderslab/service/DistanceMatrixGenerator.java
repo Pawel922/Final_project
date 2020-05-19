@@ -16,10 +16,10 @@ import java.util.List;
 @Component
 public class DistanceMatrixGenerator {
 
-    private static final String API_KEY = "";
+    private static final String API_KEY = "AIzaSyD6SFC8ZOB4hKovBt8uUeBkN-VIPUGlCso";
 
-    public static double[][] getDistanceMatrix(List<Place> placesToVisit) throws ApiException, InterruptedException, IOException {
-        double[][] resultArray = new double[placesToVisit.size()][placesToVisit.size()];
+
+    public static DistanceMatrix getGoogleAPIResponse(List<Place> placesToVisit) throws ApiException, InterruptedException, IOException {
         String[] addresses = prepareStrArray(placesToVisit);
         GeoApiContext geoApiContext = new GeoApiContext.Builder()
                 .apiKey(API_KEY)
@@ -32,10 +32,24 @@ public class DistanceMatrixGenerator {
                 .language("pl-PL")
                 .units(Unit.METRIC)
                 .await();
+        return result;
+    }
 
+    public static double[][] getDistanceMatrix(DistanceMatrix matrix) {
+        double[][] resultArray = new double[matrix.rows.length][matrix.rows.length];
         for(int i = 0; i < resultArray.length; i++) {
             for(int j = 0; j < resultArray[i].length; j++) {
-                resultArray[i][j] = result.rows[i].elements[j].distance.inMeters;
+                resultArray[i][j] = matrix.rows[i].elements[j].distance.inMeters;
+            }
+        }
+        return resultArray;
+    }
+
+    public static String[][] getDurationMatrix(DistanceMatrix matrix) {
+        String[][] resultArray = new String[matrix.rows.length][matrix.rows.length];
+        for(int i = 0; i < resultArray.length; i++) {
+            for(int j = 0; j < resultArray[i].length; j++) {
+                resultArray[i][j] = matrix.rows[i].elements[j].duration.humanReadable;
             }
         }
         return resultArray;

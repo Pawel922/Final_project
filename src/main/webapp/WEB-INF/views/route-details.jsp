@@ -9,6 +9,7 @@
                 <th>From</th>
                 <th>To</th>
                 <th>Distance [km]</th>
+                <th>Duration</th>
             </tr>
             <c:forEach items="${route.roads}" var="road" varStatus="loopCounter">
                 <tr>
@@ -16,6 +17,7 @@
                     <td>${road.startPlace.shortcut}</td>
                     <td>${road.endPlace.shortcut}</td>
                     <td>${road.roundDistance()}</td>
+                    <td>${road.duration}</td>
                 </tr>
             </c:forEach>
             <tr>

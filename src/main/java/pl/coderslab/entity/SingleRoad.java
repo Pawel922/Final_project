@@ -21,6 +21,8 @@ public class SingleRoad {
 
     private double distance;
 
+    private String duration;
+
     public long getId() {
         return id;
     }
@@ -56,6 +58,14 @@ public class SingleRoad {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     @Override
