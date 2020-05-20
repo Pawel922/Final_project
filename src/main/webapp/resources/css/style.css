@@ -69,7 +69,6 @@ p {
 }
 
 .table {
-    width: 50%;
     margin-bottom: 1rem;
     color: #212529;
 }
@@ -97,4 +96,25 @@ p {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+}
+
+#middle-dt-route {
+    width: 50%;
+    float: left;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+#map {
+    height: 65%;
+    width: 45%;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    float: right;
+}
+
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
 }

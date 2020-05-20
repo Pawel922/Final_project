@@ -2,7 +2,7 @@
 <body>
 <div id="container">
     <div id="header"><%@ include file="header.jsp" %></div>
-    <div id="middle">
+    <div id="middle-dt-route">
         <table class="table table-striped">
             <tr>
                 <th>No.</th>
@@ -34,7 +34,11 @@
             </tr>
         </table>
     </div>
+    <div id="map">
+    </div>
     <div id="footer"><%@ include file="footer.jsp" %></div>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
+<script src="/resources/js/route-details.js"></script>
 </body>
 </html>
