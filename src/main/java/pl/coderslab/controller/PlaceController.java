@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import com.google.maps.model.LatLng;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entity.DeliveryPlan;
 import pl.coderslab.entity.Place;
 import pl.coderslab.repository.PlaceRepository;
+import pl.coderslab.service.CoordinatesManager;
 import pl.coderslab.service.CurrentUser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +52,9 @@ public class PlaceController {
             placeToEdit.setCity(place.getCity());
             placeToEdit.setStreet(place.getStreet());
             placeToEdit.setHouseNumber(place.getHouseNumber());
+            LatLng coordinates = CoordinatesManager.getCoordinates(placeToEdit.getShortcut());
+            placeToEdit.setLat(coordinates.lat);
+            placeToEdit.setLng(coordinates.lng);
             if(currentUser != null) {
                 return "redirect:/delivery/add";
             } else {

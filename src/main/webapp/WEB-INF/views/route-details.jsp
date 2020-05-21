@@ -14,7 +14,9 @@
             <c:forEach items="${route.roads}" var="road" varStatus="loopCounter">
                 <tr>
                     <td>${loopCounter.count}</td>
-                    <td>${road.startPlace.shortcut}</td>
+                    <td class="start-place" data-lat="${road.startPlace.lat}" data-lng="${road.startPlace.lng}">
+                            ${road.startPlace.shortcut}
+                    </td>
                     <td>${road.endPlace.shortcut}</td>
                     <td>${road.roundDistance()}</td>
                     <td>${road.duration}</td>
