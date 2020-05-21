@@ -23,6 +23,10 @@ public class Place {
     @Min(value = 1, message = "must be greater than 0")
     private int houseNumber;
 
+    private double lat;
+
+    private double lng;
+
     public long getId() {
         return id;
     }
@@ -61,6 +65,22 @@ public class Place {
 
     public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     public String getShortcut() {
