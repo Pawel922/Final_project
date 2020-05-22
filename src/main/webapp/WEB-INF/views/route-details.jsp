@@ -40,7 +40,7 @@
     </div>
     <div id="footer"><%@ include file="footer.jsp" %></div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap"></script>
 <script src="/resources/js/route-details.js"></script>
 </body>
 </html>
