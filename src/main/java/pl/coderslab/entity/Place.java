@@ -20,8 +20,8 @@ public class Place {
     @Pattern(regexp = "([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)\\s?([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)?")
     private String street;
 
-    @Min(value = 1, message = "must be greater than 0")
-    private int houseNumber;
+    @Pattern(regexp = "[1-9][0-9]*[a-zA-Z]?", message = "invalid value")
+    private String houseNumber = " ";
 
     private double lat;
 
@@ -59,11 +59,11 @@ public class Place {
         this.street = street;
     }
 
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
@@ -86,7 +86,7 @@ public class Place {
     public String getShortcut() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(street)
-                .append(houseNumber == 0 ? " " : " " + houseNumber)
+                .append(houseNumber.equals(" ") ? " " : " " + houseNumber)
                 .append(", ")
                 .append(city);
         return stringBuilder.toString();

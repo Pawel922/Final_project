@@ -67,8 +67,7 @@ public class PlaceController {
 
     @GetMapping("/edit/{placeId}")
     public String displayEditForm(Model model,
-                                  @PathVariable long placeId,
-                                  DeliveryPlan planToEdit) {
+                                  @PathVariable long placeId) {
         Place placeToEdit = placeRepository.findById(placeId);
         model.addAttribute("placeToEdit", placeToEdit);
         return "place-edit";
