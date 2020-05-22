@@ -11,7 +11,7 @@ Final project uses Google APIs. Before you start using application make sure tha
 * Distance Matrix API
 * Geocoding API
 
-##Quick configuration
+## Quick configuration
 Below you find steps to run application:
 1. Download files from GitHub.
 2. In file *persistence.xml* set your own properties **user** and **password** to have access to your database.
