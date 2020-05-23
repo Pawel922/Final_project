@@ -73,7 +73,7 @@ public class DeliveryPlanController {
             deliveryPlan.getPlaces()
                     .forEach(placeRepository::save);
             deliveryPlanRepository.save(deliveryPlan);
-            session.removeAttribute("planDelivery");
+            session.removeAttribute("deliveryPlan");
             return "redirect:/delivery/list";
         } else {
             return "delivery-form";
