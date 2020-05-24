@@ -8,14 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.WebApplicationContext;
-import pl.coderslab.entity.DeliveryPlan;
-import pl.coderslab.entity.Place;
-import pl.coderslab.entity.Route;
-import pl.coderslab.entity.User;
+import pl.coderslab.entity.*;
 import pl.coderslab.repository.*;
 import pl.coderslab.service.CurrentUser;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,15 +31,18 @@ public class DeliveryPlanController {
     private final PlaceRepository placeRepository;
     private final RouteRepository routeRepository;
     private final UserRepository userRepository;
+    private final SingleRoadRepository singleRoadRepository;
 
     public DeliveryPlanController(DeliveryPlanRepository deliveryPlanRepository,
                                   PlaceRepository placeRepository,
                                   RouteRepository routeRepository,
-                                  UserRepository userRepository) {
+                                  UserRepository userRepository,
+                                  SingleRoadRepository singleRoadRepository) {
         this.deliveryPlanRepository = deliveryPlanRepository;
         this.placeRepository = placeRepository;
         this.routeRepository = routeRepository;
         this.userRepository = userRepository;
+        this.singleRoadRepository = singleRoadRepository;
     }
 
     @GetMapping("/add")
@@ -109,8 +110,18 @@ public class DeliveryPlanController {
     public String removeDeliveryPlan(@PathVariable long deliveryPlanId) {
         DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
         Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
-        optionalRoute.ifPresent(routeRepository::delete);
+        List<SingleRoad> roadsToDelete = null;
+        if(optionalRoute.isPresent()) {
+            Route routeToDelete = optionalRoute.get();
+            roadsToDelete = routeToDelete.getRoads();
+            routeRepository.delete(routeToDelete);
+        }
+        List<Place> placesToDelete = deliveryPlan.getPlaces();
         deliveryPlanRepository.delete(deliveryPlan);
+        if(roadsToDelete != null) {
+            roadsToDelete.forEach(singleRoadRepository::delete);
+        }
+        placesToDelete.forEach(placeRepository::delete);
         return "redirect:/delivery/list";
     }
 
