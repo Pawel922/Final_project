@@ -15,8 +15,6 @@ import pl.coderslab.entity.User;
 import pl.coderslab.repository.*;
 import pl.coderslab.service.CurrentUser;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -84,21 +82,19 @@ public class DeliveryPlanController {
     }
 
     @PostMapping("/details/{deliveryPlanId}")
-    public String processEditForm(HttpServletRequest request,
-                                  @PathVariable long deliveryPlanId,
+    public String processEditForm(@PathVariable long deliveryPlanId,
                                   @Valid @ModelAttribute("planToEdit") DeliveryPlan planToEdit,
                                   BindingResult result) {
-        HttpSession session = request.getSession();
         if(!result.hasErrors()) {
             DeliveryPlan planToUpdate = deliveryPlanRepository.findById(deliveryPlanId);
             planToUpdate.setDeliveryDate(planToEdit.getDeliveryDate());
             planToUpdate.setPlaces(planToEdit.getPlaces());
             planToUpdate.setCalculationRequiredFlag(true);
             deliveryPlanRepository.save(planToUpdate);
-            session.removeAttribute("planToEdit");
             return "redirect:/delivery/list";
+        } else {
+            return "delivery-edit";
         }
-        return "delivery-edit";
     }
 
     @GetMapping("/list")
