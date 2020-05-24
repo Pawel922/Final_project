@@ -60,8 +60,7 @@ public class HomePageController {
 
     @GetMapping("/trial")
     public String displayTrialForm(Model model,
-                                   HttpServletRequest request) {
-        HttpSession session = request.getSession();
+                                   HttpSession session) {
         if(session.getAttribute("deliveryPlan") == null) {
             DeliveryPlan deliveryPlan = DeliveryPlanController.prepareNewDeliveryPlan(CHAR_TRIAL_TABLE);
             LocalDate date = LocalDate.now();
@@ -70,7 +69,6 @@ public class HomePageController {
             model.addAttribute("deliveryPlan", deliveryPlan);
             return "trial-form";
         } else {
-            model.addAttribute("deliveryPlan", session.getAttribute("deliveryPlan"));
             return "trial-form";
         }
     }
