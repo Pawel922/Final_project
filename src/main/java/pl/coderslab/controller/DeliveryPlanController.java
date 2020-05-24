@@ -27,53 +27,48 @@ import java.util.Optional;
 @SessionAttributes({"deliveryPlan", "planToEdit"})
 public class DeliveryPlanController {
 
+    private boolean prepareNewDeliveryPlanFlag = true;
+
     private final static char[] CHAR_TABLE = {'A','B','C','D','E','F'};
 
     private final DeliveryPlanRepository deliveryPlanRepository;
     private final PlaceRepository placeRepository;
     private final RouteRepository routeRepository;
-    private final SingleRoadRepository singleRoadRepository;
     private final UserRepository userRepository;
 
     public DeliveryPlanController(DeliveryPlanRepository deliveryPlanRepository,
                                   PlaceRepository placeRepository,
                                   RouteRepository routeRepository,
-                                  SingleRoadRepository singleRoadRepository,
                                   UserRepository userRepository) {
         this.deliveryPlanRepository = deliveryPlanRepository;
         this.placeRepository = placeRepository;
         this.routeRepository = routeRepository;
-        this.singleRoadRepository = singleRoadRepository;
         this.userRepository = userRepository;
     }
 
     @GetMapping("/add")
     public String displayForm(Model model,
-                              HttpServletRequest request,
                               @AuthenticationPrincipal CurrentUser currentUser) {
-        HttpSession session = request.getSession();
-        if(session.getAttribute("deliveryPlan") == null) {
+        if(prepareNewDeliveryPlanFlag) {
             DeliveryPlan deliveryPlan = prepareNewDeliveryPlan(CHAR_TABLE);
             User owner = userRepository.findByUsername(currentUser.getUsername());
             deliveryPlan.setOwner(owner);
             model.addAttribute("deliveryPlan", deliveryPlan);
+            prepareNewDeliveryPlanFlag = false;
             return "delivery-form";
         } else {
-            model.addAttribute("deliveryPlan", session.getAttribute("deliveryPlan"));
             return "delivery-form";
         }
     }
 
     @PostMapping("/add")
-    public String processForm(HttpServletRequest request,
-                              @Valid DeliveryPlan deliveryPlan,
+    public String processForm(@Valid DeliveryPlan deliveryPlan,
                               BindingResult result) {
         if(!result.hasErrors()) {
-            HttpSession session = request.getSession();
             deliveryPlan.getPlaces()
                     .forEach(placeRepository::save);
             deliveryPlanRepository.save(deliveryPlan);
-            session.removeAttribute("deliveryPlan");
+            prepareNewDeliveryPlanFlag = true;
             return "redirect:/delivery/list";
         } else {
             return "delivery-form";
