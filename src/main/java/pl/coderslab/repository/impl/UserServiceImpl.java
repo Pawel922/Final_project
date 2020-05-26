@@ -8,7 +8,7 @@ import pl.coderslab.repository.RoleRepository;
 import pl.coderslab.repository.UserRepository;
 import pl.coderslab.repository.UserService;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 @Service
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findByUserName(String username) {
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(1);
         Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         userRepository.save(user);
     }
 }

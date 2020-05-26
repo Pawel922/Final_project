@@ -3,6 +3,7 @@ package pl.coderslab.app;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
@@ -68,6 +69,14 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public DistanceMatrixGenerator distanceMatrixGenerator() {
         return new DistanceMatrixGenerator();
+    }
+
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:messages/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 
     @Override
