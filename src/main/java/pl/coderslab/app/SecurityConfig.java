@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").permitAll()
                 .antMatchers("/delivery/**", "/route/**").authenticated()
                 .and().formLogin().loginPage("/user/login").defaultSuccessUrl("/home")
-                .and().logout().logoutSuccessUrl("/home")
+                .and().logout().logoutSuccessUrl("/user/login")
                 .permitAll();
     }
 }

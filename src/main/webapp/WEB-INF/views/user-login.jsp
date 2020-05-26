@@ -12,6 +12,7 @@
                     Are you a new user? <a class="btn btn-secondary" href="/user/register" role="button">Register</a>
                 </label>
             </div>
+            <span class="errorMessage">${error}</span>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>

@@ -11,7 +11,6 @@ import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserService;
 import pl.coderslab.validator.UserValidator;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -46,8 +45,12 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String displayLoginForm(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    public String displayLoginForm(Model model,
+                                   String error,
+                                   HttpSession session) {
+        if (error != null) {
+            model.addAttribute("error", "Your username or password is invalid");
+        }
         if(session.getAttribute("deliveryPlan") != null) {
             session.removeAttribute("deliveryPlan");
         }
