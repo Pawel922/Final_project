@@ -14,13 +14,16 @@ public class Place {
 
     private char charRepresentation;
 
-    @Pattern(regexp = "([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)\\s?([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)?")
+    @Pattern(regexp = "([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)\\s?([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)?",
+            message = "must start with a big letter and contain only letters")
     private String city;
 
-    @Pattern(regexp = "([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)\\s?([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)?")
+    @Pattern(regexp = "([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)\\s?([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)?",
+            message = "must start with a big letter and contain only letters")
     private String street;
 
-    @Pattern(regexp = "[1-9][0-9]*[a-zA-Z]?", message = "invalid value")
+    @Pattern(regexp = "[1-9][0-9]*[a-zA-Z]?",
+            message = "invalid value")
     private String houseNumber = " ";
 
     private double lat;
