@@ -75,10 +75,14 @@ public class DeliveryPlanController {
 
     @GetMapping("/details/{deliveryPlanId}")
     public String displayEditForm(Model model,
-                                  @PathVariable long deliveryPlanId) {
-        DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
-        model.addAttribute("planToEdit", deliveryPlan);
-        return "delivery-edit";
+                                  @PathVariable long deliveryPlanId,
+                                  @AuthenticationPrincipal CurrentUser currentUser) {
+        if(CurrentUser.checkIfBelongToLoggedUser(currentUser, deliveryPlanRepository, deliveryPlanId)) {
+            DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
+            model.addAttribute("planToEdit", deliveryPlan);
+            return "delivery-edit";
+        }
+        return "redirect:/delivery/list";
     }
 
     @PostMapping("/details/{deliveryPlanId}")
@@ -106,21 +110,24 @@ public class DeliveryPlanController {
     }
 
     @GetMapping("/delete/{deliveryPlanId}")
-    public String removeDeliveryPlan(@PathVariable long deliveryPlanId) {
-        DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
-        Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
-        List<SingleRoad> roadsToDelete = null;
-        if(optionalRoute.isPresent()) {
-            Route routeToDelete = optionalRoute.get();
-            roadsToDelete = routeToDelete.getRoads();
-            routeRepository.delete(routeToDelete);
+    public String removeDeliveryPlan(@PathVariable long deliveryPlanId,
+                                     @AuthenticationPrincipal CurrentUser currentUser) {
+        if(CurrentUser.checkIfBelongToLoggedUser(currentUser, deliveryPlanRepository, deliveryPlanId)) {
+            DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
+            Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
+            List<SingleRoad> roadsToDelete = null;
+            if(optionalRoute.isPresent()) {
+                Route routeToDelete = optionalRoute.get();
+                roadsToDelete = routeToDelete.getRoads();
+                routeRepository.delete(routeToDelete);
+            }
+            List<Place> placesToDelete = deliveryPlan.getPlaces();
+            deliveryPlanRepository.delete(deliveryPlan);
+            if(roadsToDelete != null) {
+                roadsToDelete.forEach(singleRoadRepository::delete);
+            }
+            placesToDelete.forEach(placeRepository::delete);
         }
-        List<Place> placesToDelete = deliveryPlan.getPlaces();
-        deliveryPlanRepository.delete(deliveryPlan);
-        if(roadsToDelete != null) {
-            roadsToDelete.forEach(singleRoadRepository::delete);
-        }
-        placesToDelete.forEach(placeRepository::delete);
         return "redirect:/delivery/list";
     }
 
@@ -135,5 +142,4 @@ public class DeliveryPlanController {
         }
         return deliveryPlan;
     }
-
 }

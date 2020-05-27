@@ -1,6 +1,7 @@
 package pl.coderslab.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,11 @@ import pl.coderslab.entity.SingleRoad;
 import pl.coderslab.repository.DeliveryPlanRepository;
 import pl.coderslab.repository.RouteRepository;
 import pl.coderslab.repository.SingleRoadRepository;
+import pl.coderslab.service.CurrentUser;
 import pl.coderslab.service.OptimalRouteFinder;
 import pl.coderslab.service.SingleRoadManager;
 
+import java.util.Currency;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,24 +53,33 @@ public class RouteController {
     }
 
     @GetMapping("/find/{deliveryPlanId}")
-    public String findOptimalRoute(@PathVariable long deliveryPlanId) {
-        Optional<Route> optionalRoute = routeRepository.findByDeliveryPlanId(deliveryPlanId);
-        DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
-        if(!optionalRoute.isPresent()) {
-            processCalculations(deliveryPlan);
-        } else if (deliveryPlan.isCalculationRequiredFlag()) {
-            prepareForNewCalculations(deliveryPlanId);
-            processCalculations(deliveryPlan);
+    public String findOptimalRoute(@PathVariable long deliveryPlanId,
+                                   @AuthenticationPrincipal CurrentUser currentUser) {
+        if(CurrentUser.checkIfBelongToLoggedUser(currentUser, deliveryPlanRepository, deliveryPlanId)) {
+            Optional<Route> optionalRoute = routeRepository.findByDeliveryPlanId(deliveryPlanId);
+            DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
+            if(!optionalRoute.isPresent()) {
+                processCalculations(deliveryPlan);
+            } else if (deliveryPlan.isCalculationRequiredFlag()) {
+                prepareForNewCalculations(deliveryPlanId);
+                processCalculations(deliveryPlan);
+            }
+            return "redirect:/route/details/" + deliveryPlanId;
         }
-        return "redirect:/route/details/" + deliveryPlanId;
+        return "redirect:/delivery/list";
+
     }
 
     @GetMapping("/details/{deliveryPlanId}")
     public String displayRouteDetails(Model model,
-                                      @PathVariable long deliveryPlanId) {
-        Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
-        optionalRoute.ifPresent(route -> model.addAttribute("route", route));
-        return "route-details";
+                                      @PathVariable long deliveryPlanId,
+                                      @AuthenticationPrincipal CurrentUser currentUser) {
+        if(CurrentUser.checkIfBelongToLoggedUser(currentUser, deliveryPlanRepository, deliveryPlanId)) {
+            Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
+            optionalRoute.ifPresent(route -> model.addAttribute("route", route));
+            return "route-details";
+        }
+        return "redirect:/delivery/list";
     }
 
     public void prepareForNewCalculations(long deliveryPlanId) {
