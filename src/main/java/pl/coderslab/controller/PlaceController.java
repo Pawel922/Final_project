@@ -84,6 +84,9 @@ public class PlaceController {
             placeToUpdate.setCity(placeToEdit.getCity());
             placeToUpdate.setStreet(placeToEdit.getStreet());
             placeToUpdate.setHouseNumber(placeToEdit.getHouseNumber());
+            LatLng coordinates = CoordinatesManager.getCoordinates(placeToUpdate.getShortcut());
+            placeToUpdate.setLat(coordinates.lat);
+            placeToUpdate.setLng(coordinates.lng);
             placeToUpdate.setCharRepresentation(placeToEdit.getCharRepresentation());
             placeRepository.save(placeToUpdate);
             DeliveryPlan planToEdit = (DeliveryPlan) session.getAttribute("planToEdit");
