@@ -24,7 +24,7 @@ public class Place {
 
     @Pattern(regexp = "[1-9][0-9]*[a-zA-Z]?",
             message = "invalid value")
-    private String houseNumber = " ";
+    private String houseNumber;
 
     private double lat;
 
@@ -89,7 +89,7 @@ public class Place {
     public String getShortcut() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(street)
-                .append(houseNumber.equals(" ") ? " " : " " + houseNumber)
+                .append(houseNumber == null ? " " : " " + houseNumber)
                 .append(", ")
                 .append(city);
         return stringBuilder.toString();
