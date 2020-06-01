@@ -24,6 +24,6 @@ public class CurrentUser extends User {
                                              DeliveryPlanRepository deliveryPlanRepository,
                                              long deliveryPlanId) {
         DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
-        return currentUser.getUser().getId().equals(deliveryPlan.getId());
+        return currentUser.getUser().getId().equals(deliveryPlan.getOwner().getId());
     }
 }
