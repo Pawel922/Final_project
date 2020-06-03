@@ -16,7 +16,7 @@ public class DeliveryPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @CorrectDate(message = "wrong date format")
+    @CorrectDate
     private String deliveryDate;
 
     @ManyToMany
