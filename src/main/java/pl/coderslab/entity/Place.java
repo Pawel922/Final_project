@@ -2,6 +2,7 @@ package pl.coderslab.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -14,16 +15,15 @@ public class Place {
 
     private char charRepresentation;
 
-    @Pattern(regexp = "([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)\\s?([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)?",
-            message = "must start with a big letter and contain only letters")
+    @Pattern(regexp = "[0-9A-ZĄĘŁŃÓŚŹŻa-ząęłńóśćżź\\s.?]+-?[0-9A-ZĄĘŁŃÓŚŹŻa-ząęłńóśćżź\\s.?]*", message = "this field is required")
+    @NotBlank(message = "cannot be empty")
     private String city;
 
-    @Pattern(regexp = "([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)\\s?([A-ZĄĘŁŃÓŚŹŻ][a-ząęłńóśćżź]+)?",
-            message = "must start with a big letter and contain only letters")
+    @Pattern(regexp = "[0-9A-ZĄĘŁŃÓŚŹŻa-ząęłńóśćżź\\s.?]+-?[0-9A-ZĄĘŁŃÓŚŹŻa-ząęłńóśćżź\\s.?]*", message = "this field is required")
+    @NotBlank(message = "cannot be empty")
     private String street;
 
-    @Pattern(regexp = "[1-9][0-9]*[a-zA-Z]?",
-            message = "invalid value")
+    @Pattern(regexp = "[1-9][0-9]*[a-zA-Z]?", message = "invalid value")
     private String houseNumber;
 
     private double lat;
