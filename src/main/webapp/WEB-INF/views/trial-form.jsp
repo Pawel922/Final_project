@@ -21,7 +21,11 @@
                             </tr>
                             <tr>
                                 <td>${place.shortcut}</td>
-                                <td><form:errors path="places" cssClass="errorMessage"/></td>
+                                <td>
+                                    <c:if test="${place.shortcut.equals('--- , ---')}">
+                                        <form:errors path="places" cssClass="errorMessage"/>
+                                    </c:if>
+                                </td>
                                 <td><a class="btn btn-warning" href="/place/add/${deliveryPlan.getPlace(loopStatus.index).charRepresentation}" role="button">Edit</a></td>
                             </tr>
                             <tr>
@@ -33,7 +37,11 @@
                         <c:otherwise>
                             <tr>
                                 <td>${place.shortcut}</td>
-                                <td><form:errors path="places" cssClass="errorMessage"/></td>
+                                <td>
+                                    <c:if test="${place.shortcut.equals('--- , ---')}">
+                                        <form:errors path="places" cssClass="errorMessage"/>
+                                    </c:if>
+                                </td>
                                 <td><a class="btn btn-warning" href="/place/add/${deliveryPlan.getPlace(loopStatus.index).charRepresentation}" role="button">Edit</a></td>
                             </tr>
                         </c:otherwise>
