@@ -33,6 +33,11 @@ public class CorrectDateValidator implements ConstraintValidator<CorrectDate, St
             } catch (DateTimeException e) {
                 isCorrect = false;
             }
+        } else if (textDate.matches("[ ]*")) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate( "date cannot be empty" )
+                    .addConstraintViolation();
+            isCorrect = false;
         } else {
             isCorrect = false;
         }
