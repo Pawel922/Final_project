@@ -124,9 +124,9 @@ public class DeliveryPlanController {
             List<Place> placesToDelete = deliveryPlan.getPlaces();
             deliveryPlanRepository.delete(deliveryPlan);
             if(roadsToDelete != null) {
-                roadsToDelete.forEach(singleRoad -> singleRoad.setStartPlace(null));
-                roadsToDelete.forEach(singleRoad -> singleRoad.setEndPlace(null));
-                roadsToDelete.forEach(singleRoadRepository::save);
+//                roadsToDelete.forEach(singleRoad -> singleRoad.setStartPlace(null));
+//                roadsToDelete.forEach(singleRoad -> singleRoad.setEndPlace(null));
+//                roadsToDelete.forEach(singleRoadRepository::save);
                 roadsToDelete.forEach(singleRoadRepository::delete);
             }
             placesToDelete.forEach(placeRepository::delete);
