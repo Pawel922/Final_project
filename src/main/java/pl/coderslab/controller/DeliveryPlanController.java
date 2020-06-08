@@ -115,21 +115,9 @@ public class DeliveryPlanController {
         if(CurrentUser.checkIfBelongToLoggedUser(currentUser, deliveryPlanRepository, deliveryPlanId)) {
             DeliveryPlan deliveryPlan = deliveryPlanRepository.findById(deliveryPlanId);
             Optional<Route> optionalRoute = routeRepository.getByDeliveryPlanId(deliveryPlanId);
-            List<SingleRoad> roadsToDelete = null;
-            if(optionalRoute.isPresent()) {
-                Route routeToDelete = optionalRoute.get();
-                roadsToDelete = routeToDelete.getRoads();
-                routeRepository.delete(routeToDelete);
-            }
-            List<Place> placesToDelete = deliveryPlan.getPlaces();
+            optionalRoute.ifPresent(routeRepository::delete);
             deliveryPlanRepository.delete(deliveryPlan);
-            if(roadsToDelete != null) {
-//                roadsToDelete.forEach(singleRoad -> singleRoad.setStartPlace(null));
-//                roadsToDelete.forEach(singleRoad -> singleRoad.setEndPlace(null));
-//                roadsToDelete.forEach(singleRoadRepository::save);
-                roadsToDelete.forEach(singleRoadRepository::delete);
-            }
-            placesToDelete.forEach(placeRepository::delete);
+            return "redirect:/delivery/list";
         }
         return "redirect:/delivery/list";
     }
